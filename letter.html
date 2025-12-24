@@ -9,18 +9,21 @@
     body {
       margin: 0;
       height: 100vh;
-
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      font-family: Segoe UI;
+      font-family: 'Segoe UI', sans-serif;
+      background: #050d1a; /* Màu nền tối để nổi bật tuyết */
     }
 
     .scene {
       position: relative;
       width: 100%;
       height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .tree {
@@ -29,24 +32,14 @@
       bottom: 6%;
       width: 120px;
       animation: rgb 3s infinite linear;
+      z-index: 10;
     }
 
     @keyframes rgb {
-      0% {
-        filter: drop-shadow(0 0 15px red)
-      }
-
-      33% {
-        filter: drop-shadow(0 0 15px lime)
-      }
-
-      66% {
-        filter: drop-shadow(0 0 15px cyan)
-      }
-
-      100% {
-        filter: drop-shadow(0 0 15px red)
-      }
+      0% { filter: drop-shadow(0 0 15px red) }
+      33% { filter: drop-shadow(0 0 15px lime) }
+      66% { filter: drop-shadow(0 0 15px cyan) }
+      100% { filter: drop-shadow(0 0 15px red) }
     }
 
     .book {
@@ -54,32 +47,8 @@
       max-width: 420px;
       height: 80vh;
       perspective: 2000px;
-      margin: auto;
-      touch-action: pan-y;
       cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .book:hover {
-      transform: scale(1.02);
-    }
-
-    .book.animate {
-      animation: bookBounce 0.6s ease;
-    }
-
-    @keyframes bookBounce {
-      0% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.05) rotateY(-10deg);
-      }
-
-      100% {
-        transform: scale(1);
-      }
+      position: relative;
     }
 
     .page {
@@ -88,22 +57,16 @@
       height: 100%;
       background: linear-gradient(135deg, #fff5f7 0%, #ffe4e9 100%);
       transform-origin: left;
-      transition: transform 1.2s;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
-      border: 2px solid #ddd;
+      transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
+      border: 1px solid #ddd;
+      backface-visibility: hidden; /* Quan trọng để lật trang mượt */
     }
 
-    .page:nth-child(1) {
-      z-index: 3;
-    }
-
-    .page:nth-child(2) {
-      z-index: 2;
-    }
-
-    .page:nth-child(3) {
-      z-index: 1;
-    }
+    /* Thứ tự hiển thị các trang */
+    #p1 { z-index: 3; }
+    #p2 { z-index: 2; }
+    #p3 { z-index: 1; }
 
     .page.flip {
       transform: rotateY(-180deg);
@@ -111,36 +74,29 @@
 
     .content {
       position: absolute;
-      inset: 15%;
+      inset: 10%;
       text-align: center;
-      color: #333;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
     }
 
     .content h2 {
       font-size: 1.5em;
-      margin: 0 0 20px 0;
       color: #c41e3a;
-      font-weight: bold;
+      margin-bottom: 15px;
     }
 
     .content p {
-      font-size: 1em;
+      font-size: 1.1em;
       line-height: 1.6;
-      color: #555;
-      margin: 10px 0;
+      color: #333;
     }
 
     .cat {
-      position: absolute;
-      bottom: 6%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 110px;
+      width: 120px;
+      margin-top: 20px;
     }
 
     .snow span {
@@ -151,12 +107,11 @@
       background: white;
       border-radius: 50%;
       animation: fall linear infinite;
+      z-index: 5;
     }
 
     @keyframes fall {
-      to {
-        transform: translateY(110vh)
-      }
+      to { transform: translateY(110vh) }
     }
   </style>
 </head>
@@ -165,59 +120,87 @@
 
   <audio id="music" src="1.mp3" loop></audio>
 
-  <div class="scene" <img src="https://cdn-icons-png.flaticon.com/512/616/616490.png" class="tree">
+  <div class="scene">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616490.png" class="tree">
 
     <div class="book" id="book">
       <div class="page" id="p1">
         <div class="content">
-          <h2>Noel đến rồi, chúc em có một mùa Giáng Sinh thật vui và ấm áp.</h2>
-          <p>Mong em lúc nào cũng cười nhiều, giữ được sự hồn nhiên và những điều tốt đẹp trong lòng.
-          <div class="page" id="p3">
-            <div class="content">
-              <p>Noel đến rồi, chúc em có một mùa Giáng Sinh thật vui và ấm áp. Mong em lúc nào cũng cười nhiều, giữ
-                được sự hồn nhiên và những điều tốt đẹp trong lòng, luôn bình an và gặp nhiều
-                may mắn. Hy vọng những ngày cuối năm này sẽ mang đến cho em thật nhiều kỷ niệm đẹp.💖</p>
-            </div>
-            <img src="https://panbap.github.io/merrychristmas/img/mewmew.gif" class="cat">
-          </div>
+          <h2>Merry Christmas 🎄</h2>
+          <p>Chạm vào sách để xem điều bất ngờ nhé!</p>
+          <img src="https://panbap.github.io/merrychristmas/img/mewmew.gif" class="cat" style="width: 80px;">
         </div>
       </div>
 
-      <div class="snow"></div>
+      <div class="page" id="p2">
+        <div class="content">
+          <h2>Lời chúc</h2>
+          <p>Noel đến rồi, chúc em có một mùa Giáng Sinh thật vui và ấm áp.</p>
+          <p>Mong em lúc nào cũng cười nhiều, giữ được sự hồn nhiên.</p>
+        </div>
+      </div>
 
-      <script>
-        const music = document.getElementById('music');
-        if (localStorage.playMusic === '1') { music.play(); }
+      <div class="page" id="p3">
+        <div class="content">
+          <p>Chúc em học tập thật tốt, luôn bình an và gặp nhiều may mắn. Hy vọng những ngày cuối năm này sẽ mang đến cho em thật nhiều kỷ niệm đẹp.💖</p>
+          <img src="https://panbap.github.io/merrychristmas/img/mewmew.gif" class="cat">
+        </div>
+      </div>
+    </div>
+  </div>
 
-        let page = 0;
-        const pages = [p1, p2, p3];
+  <div class="snow"></div>
 
-        function flipNext() {
-          if (page < pages.length) {
-            pages[page].classList.add('flip');
-            page++;
-          }
-        }
+  <script>
+    const music = document.getElementById('music');
+    const book = document.getElementById('book');
+    const p1 = document.getElementById('p1');
+    const p2 = document.getElementById('p2');
+    const p3 = document.getElementById('p3');
 
-        let startX = 0;
-        book.addEventListener('touchstart', e => {
-          startX = e.touches[0].clientX;
-        });
-        book.addEventListener('touchend', e => {
-          let endX = e.changedTouches[0].clientX;
-          if (startX - endX > 50) { flipNext(); }
-        });
+    // Tự động phát nhạc nếu đã có quyền từ trang index
+    if (localStorage.playMusic === '1') {
+      music.play().catch(() => {
+        console.log("Cần tương tác để phát nhạc");
+      });
+    }
 
-        book.onclick = flipNext;
+    let page = 0;
+    const pages = [p1, p2, p3];
 
-        for (let i = 0; i < 70; i++) {
-          let s = document.createElement('span');
-          s.style.left = Math.random() * 100 + '%';
-          s.style.animationDuration = 5 + Math.random() * 5 + 's';
-          document.querySelector('.snow').appendChild(s);
-        }
-      </script>
+    function flipNext() {
+      if (page < pages.length - 1) { // Lật trang 1 và 2, trang 3 là cuối cùng
+        pages[page].classList.add('flip');
+        page++;
+        // Đảm bảo nhạc phát khi tương tác
+        if (music.paused) music.play();
+      }
+    }
+
+    // Hỗ trợ click chuột
+    book.onclick = flipNext;
+
+    // Hỗ trợ vuốt trên điện thoại
+    let startX = 0;
+    book.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+    });
+    book.addEventListener('touchend', e => {
+      let endX = e.changedTouches[0].clientX;
+      if (startX - endX > 50) { flipNext(); }
+    });
+
+    // Tạo hiệu ứng tuyết rơi
+    const snowContainer = document.querySelector('.snow');
+    for (let i = 0; i < 70; i++) {
+      let s = document.createElement('span');
+      s.style.left = Math.random() * 100 + '%';
+      s.style.opacity = Math.random();
+      s.style.animationDuration = (5 + Math.random() * 5) + 's';
+      s.style.animationDelay = Math.random() * 5 + 's';
+      snowContainer.appendChild(s);
+    }
+  </script>
 
 </body>
-
 </html>
