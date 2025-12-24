@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merry Christmas</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: url('https://panbap.github.io/merrychristmas/img/Re.png') center/cover no-repeat;
+      background-attachment: fixed;
+
+      overflow: hidden;
+      font-family: Segoe UI;
+    }
+
+    .envelope {
+      position: absolute;
+      bottom: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 160px;
+      cursor: pointer;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0)
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(-12px)
+      }
+    }
+
+    .slide {
+      animation: slideUp 1s forwards;
+    }
+
+    @keyframes slideUp {
+      to {
+        bottom: 120%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <img src="https://panbap.github.io/merrychristmas/img/letters.png" class="envelope" id="env">
+
+  <audio id="music" src="1.mp3" loop></audio>
+
+  <script>
+    const music = document.getElementById('music');
+    if (localStorage.playMusic === '1') { music.play(); }
+
+    env.onclick = () => {
+      localStorage.playMusic = '1';
+      music.play();
+      env.classList.add('slide');
+      setTimeout(() => location.href = 'letter.html', 1000);
+    }
+  </script>
+
+</body>
+
+</html>
